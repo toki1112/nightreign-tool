@@ -1,0 +1,37 @@
+# Rubyのベースイメージを指定
+# Ruby 3.4.8 がインストールされた公式イメージを利用
+FROM ruby:3.4.8
+
+# 環境変数の設定
+# LANG : 日本語などUTF-8文字コードを使用
+# TZ   : タイムゾーンを日本時間に設定
+ENV LANG=C.UTF-8
+ENV TZ=Asia/Tokyo
+
+# Railsの開発に必要なパッケージをインストール
+RUN apt-get update -qq \
+  # build-essential : C言語拡張のgemをビルドするために必要
+  # libpq-dev      : PostgreSQLへ接続するためのライブラリ
+  # nodejs         : JavaScriptランタイム（Railsで利用）
+  # npm            : Node.jsのパッケージ管理ツール
+  # vim            : コンテナ内でファイル編集をするため
+  && apt-get install -y build-essential libpq-dev nodejs npm vim \
+  # npm経由でYarnをインストール
+  # （従来のapt-keyを使う方法は現在のDebianでは非推奨・廃止のため）
+  && npm install -g yarn \
+  # aptのキャッシュを削除してイメージサイズを小さくする
+  && rm -rf /var/lib/apt/lists/*
+
+# アプリケーション用ディレクトリを作成
+RUN mkdir /myapp
+
+# 作業ディレクトリを /myapp に設定
+# 以降のRUN/COPY/CMDはこのディレクトリを基準に実行される
+WORKDIR /myapp
+
+# Bundlerをインストール
+# Gemfileに記載されたgemを管理するために使用
+RUN gem install bundler
+
+# ローカルのアプリケーションをコンテナへコピー
+COPY . /myapp
