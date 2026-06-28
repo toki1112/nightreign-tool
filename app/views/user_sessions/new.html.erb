@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <h1 class="text-center mb-4">ログインしてください</h1>
+
+      <%= form_with url: login_path do |f| %>
+        <div class="mb-3">
+          <%= f.label :email, "メールアドレス", class: "form-label" %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password, "パスワード", class: "form-label" %>
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+
+        <div class="d-grid mb-3">
+          <%= f.submit "ログイン", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <div class="d-grid mb-3">
+        <%= link_to "サインアップ", users_new_path, class: "btn btn-outline-primary" %>
+      </div>
+
+      <div class="text-center">
+        <%= link_to "戻る", "#", onclick: "history.back(); return false;" %>
+      </div>
+
+    </div>
+  </div>
+</div>
