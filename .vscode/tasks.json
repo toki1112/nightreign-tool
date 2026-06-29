@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ターミナル",
+      "type": "shell",
+      "command": "echo ターミナル",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "Git",
+      "type": "shell",
+      "command": "echo Git",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "Rails Console",
+      "type": "shell",
+      "command": "echo Rails Console",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "Docker",
+      "type": "shell",
+      "command": "echo Docker",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always",
+        "focus": false
+      }
+    },
+    {
+      "label": "開発用ターミナルを開く",
+      "dependsOn": [
+        "ターミナル",
+        "Git",
+        "Rails Console",
+        "Docker"
+      ],
+      "dependsOrder": "parallel"
+    }
+  ]
+}
+
+// Ctrl + Shift + P
+// ↓
+// Tasks: Run Task
+// ↓
+// 開発用ターミナルを開く
