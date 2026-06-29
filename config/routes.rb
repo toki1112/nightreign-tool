@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "bosses/index"
   get "users/new"
   get "users/create"
   get "static_pages/top"
@@ -20,4 +21,5 @@ Rails.application.routes.draw do
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
   resources :users, only: %i[new create]
+  resources :bosses, only: %i[index]
 end

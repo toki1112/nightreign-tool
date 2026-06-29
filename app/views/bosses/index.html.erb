@@ -1,0 +1,9 @@
+<% if @bosses.present? %>
+  <% @bosses.each do |boss| %>
+    <div class="mb-3">
+      <h2><%= boss.name %></h2>
+    </div>
+  <% end %>
+<% else %>
+  <p>該当する敵はいません。</p>
+<% end %>

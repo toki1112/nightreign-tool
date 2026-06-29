@@ -19,9 +19,14 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# ログイン機能
 gem "sorcery"
 
+# CSV使う用
 gem "csv"
+
+# 文字列部分一致検索用
+gem "ransack"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
