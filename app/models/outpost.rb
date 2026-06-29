@@ -19,7 +19,7 @@ class Outpost < ApplicationRecord
     frost: 7,       # 冷気
     bleed: 8,       # 出血
     madness: 9,     # 発狂
-    sleep: 10,      # 睡眠  
-    death: 11       # 死   
+    sleep: 10,      # 睡眠
+    death: 11       # 死
   }
 end
