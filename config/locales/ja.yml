@@ -1,0 +1,14 @@
+ja:
+  enums:
+    outpost:
+      element_type:
+        none: "なし"
+        fire: "炎"
+        lightning: "雷"
+        holy: "聖"
+        magic: "魔力"
+        poison: "毒"
+        rot: "腐敗"
+        frost: "冷気"
+        bleed: "出血"
+        madness: "発狂"
