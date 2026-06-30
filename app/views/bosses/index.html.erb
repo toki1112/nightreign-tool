@@ -1,9 +1,20 @@
-<% if @bosses.present? %>
-  <% @bosses.each do |boss| %>
-    <div class="mb-3">
-      <h2><%= boss.name %></h2>
+<h1 class="text-center mb-4">検索結果</h1>
+<% if @boss_results.present? %>
+  <% @boss_results.each do |result| %>
+    <div class="card mb-3 mx-auto" style="max-width: 500px;">
+      <div class="card-body text-center">
+        <p class="fw-bold"><%= result[:boss].name %></p>
+        <% if result[:grouped_results].present? %>
+          <% result[:grouped_results].each do |grouped_result| %>
+            <%= link_to "夜の王 : #{grouped_result[:night_lord].name } 地変 : #{grouped_result[:terrain_change].name} 確率 : #{grouped_result[:probability]}%","#",
+              class: "btn btn-primary d-block mb-2" %>
+          <% end %>
+        <% else %>
+          <p class="text-muted">マップ情報がありません。</p>
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% else %>
-  <p>該当する敵はいません。</p>
+  <p class="text-center">該当する敵はいません。</p>
 <% end %>
