@@ -37,4 +37,16 @@
     </div>
   <% end %>
 </div>
-</div>
+<% if logged_in? %>
+  <div class="text-center mt-4">
+    <%= link_to "みんなの攻略情報",
+                boss_strategy_posts_path(@boss),
+                class: "btn btn-primary" %>
+  </div>
+<% else %>
+    <div class="text-center mt-4">
+    <%= link_to "みんなの攻略情報(ログインすると利用できます)",
+                "#",
+                class: "btn btn-primary" %>
+  </div>
+<% end %>

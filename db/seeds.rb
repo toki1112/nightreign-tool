@@ -9,18 +9,21 @@
 #   end
 require "csv"
 
+# 本番運用後はBossなどのマスターデータを削除して再投入しないこと。
+# StrategyPostがboss_idでBossを参照しているため、BossのIDが変わると投稿との紐づきが壊れる。
+# 本番運用後のマスターデータ更新は追加のみで行う。
 # 依存関係があるテーブルから先に削除
 MapObject.delete_all
 MapPattern.delete_all
+# Boss.delete_all
 Outpost.delete_all
-Boss.delete_all
 TerrainChange.delete_all
 NightLord.delete_all
 
 # IDを1から振り直す
 ActiveRecord::Base.connection.reset_pk_sequence!("night_lords")
 ActiveRecord::Base.connection.reset_pk_sequence!("terrain_changes")
-ActiveRecord::Base.connection.reset_pk_sequence!("bosses")
+# ActiveRecord::Base.connection.reset_pk_sequence!("bosses")
 ActiveRecord::Base.connection.reset_pk_sequence!("outposts")
 ActiveRecord::Base.connection.reset_pk_sequence!("map_patterns")
 ActiveRecord::Base.connection.reset_pk_sequence!("map_objects")
@@ -37,7 +40,7 @@ CSV.foreach(Rails.root.join("db/seeds/terrain_changes.csv"), headers: true, enco
 end
 
 CSV.foreach(Rails.root.join("db/seeds/bosses.csv"), headers: true, encoding: "bom|utf-8") do |row|
-  Boss.create!(name: row["name"])
+  Boss.find_or_create_by!(name: row["name"])
 end
 
 CSV.foreach(Rails.root.join("db/seeds/outposts.csv"), headers: true, encoding: "bom|utf-8") do |row|
