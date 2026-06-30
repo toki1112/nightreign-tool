@@ -34,13 +34,34 @@ class BossesController < ApplicationController
       end
 
       # 確率が上位二件のものを表示
-      grouped_results = grouped_results.first(2)
-
+      grouped_results = grouped_results.first(7)
 
       {
-          boss: boss,
-          grouped_results: grouped_results
+        boss: boss,
+        grouped_results: grouped_results
       }
     end
+  end
+
+  def show
+    @boss = Boss.find(params[:id])
+    @night_lord = NightLord.find(params[:night_lord_id])
+    @terrain_change = TerrainChange.find(params[:terrain_change_id])
+
+    @map_patterns = MapPattern.where(
+      night_lord: @night_lord,
+      terrain_change: @terrain_change
+    )
+
+    @boss_map_objects = MapObject.where(
+      boss: @boss,
+      map_pattern: @map_patterns
+    )
+
+    @hints = VolcanoMapIdentifier.new(
+      boss: @boss,
+      night_lord: @night_lord,
+      terrain_change: @terrain_change
+    ).call
   end
 end

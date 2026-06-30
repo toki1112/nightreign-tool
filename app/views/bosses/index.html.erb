@@ -6,7 +6,11 @@
         <p class="fw-bold"><%= result[:boss].name %></p>
         <% if result[:grouped_results].present? %>
           <% result[:grouped_results].each do |grouped_result| %>
-            <%= link_to "夜の王 : #{grouped_result[:night_lord].name } 地変 : #{grouped_result[:terrain_change].name} 確率 : #{grouped_result[:probability]}%","#",
+            <%= link_to "夜の王 : #{grouped_result[:night_lord].name } 地変 : #{grouped_result[:terrain_change].name} 確率 : #{grouped_result[:probability]}%",boss_path(
+                result[:boss],
+                night_lord_id: grouped_result[:night_lord].id,
+                terrain_change_id: grouped_result[:terrain_change].id
+            ),
               class: "btn btn-primary d-block mb-2" %>
           <% end %>
         <% else %>
