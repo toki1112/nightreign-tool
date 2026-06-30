@@ -36,7 +36,7 @@ class BossesController < ApplicationController
       # 確率が上位二件のものを表示
       grouped_results = grouped_results.first(2)
 
-      
+
       {
           boss: boss,
           grouped_results: grouped_results
