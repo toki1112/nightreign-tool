@@ -1,0 +1,40 @@
+<h1 class="text-center mb-4"><%= @boss.name %></h1>
+<div class="card mb-4 mx-auto" style="max-width: 450px;">
+  <div class="card-body text-center">
+    <h2 class="h5 fw-bold mb-3">↓選択する標的と地変↓</h2>
+    <p class="mb-2">
+      夜の王：
+      <span class="fw-bold"><%= @night_lord.name %></span>
+    </p>
+    <p class="mb-0">
+      地変：
+      <span class="fw-bold"><%= @terrain_change.name %></span>
+    </p>
+  </div>
+</div>
+<div class="mt-4">
+  <h2 class="text-center mb-4">見分け方</h2>
+  <% @hints.each.with_index(1) do |hint, hint_index| %>
+    <div class="card mb-3 mx-auto" style="max-width: 450px;">
+      <div class="card-body text-center">
+        <h3 class="h6 fw-bold mb-3">パターン<%= hint_index %></h3>
+        <div class="mb-3">
+          <% hint[:used_keys].each.with_index(1) do |condition, condition_index| %>
+            <p class="mb-2">
+              <%= condition_index %>.
+              Mapの<span class="fw-bold"><%= condition[:label] %></span>
+              の拠点が
+              <span class="fw-bold"><%= condition[:outpost_name] %></span>
+            </p>
+          <% end %>
+        </div>
+        <p class="mb-0">
+          Mapの<span class="fw-bold"><%= hint[:boss_position][:label] %></span>に
+          <span class="fw-bold"><%= @boss.name %></span>
+          が出現します
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
