@@ -2,7 +2,7 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :strategy_posts, dependent: :destroy
-  
+
   attr_accessor :password_confirmation
 
   validates :name, presence: true
