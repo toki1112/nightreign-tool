@@ -1,0 +1,52 @@
+<div class="strategy-posts-container">
+  <h1 class="text-center mb-4">みんなの攻略情報</h1>
+  <h2 class="text-center mb-4">
+    <%= @boss.name %>
+  </h2>
+  <% if @strategy_posts.any? %>
+    <% @strategy_posts.each.with_index(1) do |strategy_post, index| %>
+      <div class="card mb-3 mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+          <p class="fw-bold mb-1">
+            <%= index %>. <%= strategy_post.user.name %>
+          </p>
+          <p class="text-muted small mb-2">
+            <%= l(strategy_post.created_at, format: :long) %>
+          </p>
+          <div class="mb-0">
+            <%= simple_format(strategy_post.body) %>
+          </div>
+          <% if current_user.own?(strategy_post) && strategy_post.editable? %>
+            <div class="text-end mt-2">
+              <%= link_to "編集",
+                        edit_boss_strategy_post_path(@boss, strategy_post),
+                        class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "削除",
+                        boss_strategy_post_path(@boss, strategy_post),
+                        data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+                        class: "btn btn-sm btn-outline-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center">
+      まだ攻略情報は投稿されていません。
+    </p>
+  <% end %>
+</div>
+<div class="fixed-bottom bg-white border-top py-3">
+  <div class="container" style="max-width: 600px;">
+    <div class="card-body">
+      <%= form_with model: [@boss, StrategyPost.new], local: true do |f| %>
+        <div class="mb-3">
+          <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "攻略情報を投稿する" %>
+        </div>
+        <div class="text-end">
+          <%= f.submit "投稿", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
