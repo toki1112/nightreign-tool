@@ -23,7 +23,7 @@ class VolcanoMapIdentifier
   "26" => "二日目の夜",
   "27" => "中央砦屋上",
   "28" => "中央砦",
-  "29" => "中央砦地下",
+  "29" => "中央砦地下"
 }
 
   def initialize(boss:, night_lord:, terrain_change:)
@@ -41,7 +41,7 @@ class VolcanoMapIdentifier
     end
 
     confirmed_patterns = []
-    duplicate_groups = [patterns]
+    duplicate_groups = [ patterns ]
 
     CHECK_POSITIONS.each_with_index do |_position_name, key_index|
       next_duplicate_groups = []
@@ -77,7 +77,7 @@ end
 
   def map_patterns
     MapPattern
-      .includes(map_objects: [:outpost, :boss])
+      .includes(map_objects: [ :outpost, :boss ])
       .where(
         night_lord: @night_lord,
         terrain_change: @terrain_change
