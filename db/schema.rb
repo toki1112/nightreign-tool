@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_29_002117) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_054834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_002117) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "strategy_posts", force: :cascade do |t|
+    t.text "body"
+    t.bigint "boss_id", null: false
+    t.datetime "created_at", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["boss_id"], name: "index_strategy_posts_on_boss_id"
+    t.index ["user_id"], name: "index_strategy_posts_on_user_id"
+  end
+
   create_table "terrain_changes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -85,4 +96,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_29_002117) do
   add_foreign_key "map_objects", "outposts"
   add_foreign_key "map_patterns", "night_lords"
   add_foreign_key "map_patterns", "terrain_changes"
+  add_foreign_key "strategy_posts", "bosses"
+  add_foreign_key "strategy_posts", "users"
 end
