@@ -1,8 +1,17 @@
+<% content_for :title, "みんなの攻略情報 : 編集" %>
 <h1 class="text-center mb-4">攻略情報を編集</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
   <div class="card-body">
-    <%= form_with model: [@boss, @strategy_post], local: true do |f| %>
+    <%= form_with model: [@boss, @strategy_post], 
+                url: boss_strategy_post_path(
+                @boss,
+                @strategy_post,
+                night_lord_id: params[:night_lord_id],
+                terrain_change_id: params[:terrain_change_id],
+                q: params[:q]&.permit(:name_cont)&.to_h
+              ),
+              local: true do |f| %>
       <div class="mb-3">
         <%= f.text_area :body, class: "form-control", rows: 5 %>
       </div>
@@ -15,5 +24,11 @@
 </div>
 
 <div class="text-center mt-3">
-  <%= link_to "一覧へ戻る", boss_strategy_posts_path(@boss) %>
+  <%= link_to "一覧へ戻る", boss_strategy_posts_path(
+                          @boss, 
+                          night_lord_id: params[:night_lord_id],
+                          terrain_change_id: params[:terrain_change_id],
+                          q: params[:q]&.permit(:name_cont)&.to_h
+                          ),
+                          class: "btn btn-outline-secondary"  %>
 </div>

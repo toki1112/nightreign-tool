@@ -1,4 +1,16 @@
 ja:
+  activerecord:
+    models:
+      user: ユーザー
+      strategy_post: 攻略情報
+    attributes:
+      strategy_post:
+        body: 本文
+      user:
+        email: メールアドレス
+        name: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード（確認）
   enums:
     outpost:
       element_type:

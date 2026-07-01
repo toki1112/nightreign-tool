@@ -1,7 +1,12 @@
 class BossesController < ApplicationController
   def index
     @q = Boss.ransack(params[:q])
-    @bosses = @q.result(distinct: true)
+    if params.dig(:q, :name_cont).present?
+      @bosses = @q.result
+    else
+      @bosses = Boss.none
+      redirect_to root_path, alert: "ボス名を入力してください。"
+    end
 
     @boss_results = @bosses.map do |boss|
       grouped_map_objects = boss.map_objects.group_by do |map_object|
