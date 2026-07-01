@@ -29,7 +29,7 @@ gem "csv"
 gem "ransack"
 
 # 多言語化
-gem 'rails-i18n', '~> 8.1.0'
+gem "rails-i18n", "~> 8.1.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
