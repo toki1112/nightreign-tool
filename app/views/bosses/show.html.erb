@@ -1,3 +1,4 @@
+<% content_for :title, "厳選方法「#{@boss.name}」" %>
 <h1 class="text-center mb-4"><%= @boss.name %></h1>
 <div class="card mb-4 mx-auto" style="max-width: 450px;">
   <div class="card-body text-center">
@@ -40,13 +41,23 @@
 <% if logged_in? %>
   <div class="text-center mt-4">
     <%= link_to "みんなの攻略情報",
-                boss_strategy_posts_path(@boss),
+                boss_strategy_posts_path(
+                  @boss,
+                  night_lord_id: @night_lord.id,
+                  terrain_change_id: @terrain_change.id,
+                  q: params[:q]&.permit(:name_cont)&.to_h
+                ),
                 class: "btn btn-primary" %>
   </div>
 <% else %>
-    <div class="text-center mt-4">
+  <div class="text-center mt-4">
     <%= link_to "みんなの攻略情報(ログインすると利用できます)",
                 "#",
                 class: "btn btn-primary" %>
   </div>
 <% end %>
+<div class="text-center mt-3 mb-5">
+  <%= link_to "戻る",
+              bosses_path(q: params[:q]&.permit(:name_cont)&.to_h),
+              class: "btn btn-outline-secondary" %>
+</div>

@@ -13,7 +13,7 @@ class StrategyPostsController < ApplicationController
     @strategy_post.boss = @boss
 
     if @strategy_post.save
-      redirect_to boss_strategy_posts_path(@boss), notice: "攻略情報を投稿しました"
+      redirect_to strategy_posts_index_path, notice: "攻略情報を投稿しました"
     else
       @strategy_posts = @boss.strategy_posts.order(created_at: :asc)
       flash.now[:alert] = "攻略情報を入力してください"
@@ -26,7 +26,7 @@ class StrategyPostsController < ApplicationController
 
   def update
     if @strategy_post.update(strategy_post_params)
-      redirect_to boss_strategy_posts_path(@boss), notice: "攻略情報を更新しました"
+      redirect_to strategy_posts_index_path, notice: "攻略情報を更新しました"
     else
       flash.now[:alert] = "攻略情報を入力してください"
       render :edit, status: :unprocessable_entity
@@ -35,7 +35,7 @@ class StrategyPostsController < ApplicationController
 
   def destroy
     @strategy_post.destroy!
-    redirect_to boss_strategy_posts_path(@boss), notice: "攻略情報を削除しました"
+    redirect_to strategy_posts_index_path, notice: "攻略情報を削除しました"
   end
 
   private
@@ -55,6 +55,19 @@ class StrategyPostsController < ApplicationController
   def authorize_strategy_post!
     return if current_user.own?(@strategy_post) && @strategy_post.editable?
 
-    redirect_to boss_strategy_posts_path(@boss), alert: "編集・削除できるのは投稿から30分以内です"
+    redirect_to boss_strategy_posts_path(
+      @boss,
+      night_lord_id: params[:night_lord_id],
+      terrain_change_id: params[:terrain_change_id],
+      q: params[:q]&.permit(:name_cont)&.to_h), alert: "編集・削除できるのは投稿から30分以内です"
+  end
+
+  def strategy_posts_index_path
+    boss_strategy_posts_path(
+    @boss,
+    night_lord_id: params[:night_lord_id],
+    terrain_change_id: params[:terrain_change_id],
+    q: params[:q]&.permit(:name_cont)&.to_h
+    )
   end
 end
